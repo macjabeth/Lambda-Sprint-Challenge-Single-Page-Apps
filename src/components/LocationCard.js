@@ -1,5 +1,17 @@
-import React from "react";
+import React from 'react';
+import { Segment, Label, Header } from 'semantic-ui-react';
 
-export default function LocationCard({ name, type, dimension, residents }) {
-  return <span>todo: location</span>;
+const LocationCard = (props) => {
+  const residentCount = props.residents.length;
+  const ordinal = props.residents.length > 1 ? 's' : '';
+
+  return (
+    <Segment padded>
+      <Label attached="bottom right">{residentCount} Resident{ordinal}</Label>
+      <Header>{props.name}</Header>
+      <Header sub>{props.type} - {props.dimension}</Header>
+    </Segment>
+  );
 }
+
+export default LocationCard;

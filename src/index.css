@@ -37,3 +37,12 @@ main {
 header h1 {
   text-align: center;
 }
+
+.welcome-page {
+  padding: 10px;
+}
+
+.location-list > div {
+  width: 45%;
+  margin: 10px 0 !important;
+}

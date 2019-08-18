@@ -1,18 +1,42 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Input, Button } from 'semantic-ui-react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-export default function SearchForm({ onSearch }) {
-  // TODO: Add stateful logic for query/form data
-  return (
-    <section className="search-form">
-      <form onSubmit={() => onSearch(name)}>
-        <input
-          onChange={handleInputChange}
-          placeholder="name"
-          value={name}
-          name="name"
-        />
-        <button type="submit">Search</button>
-      </form>
-    </section>
-  );
-}
+const SemanticInput = ({ field, form: { touched, errors }, ...props }) => (
+  <div>
+    <Input type="text" {...field} {...props} />
+    {touched[field.name] && errors[field.name] && (
+      <div className="error">{errors[field.name]}</div>
+    )}
+  </div>
+);
+
+const SearchForm = ({ onSearch }) => (
+  <section className="search-form">
+    <Formik
+      initialValues={{ name: '' }}
+      validationSchema={Yup.object().shape({
+        name: Yup.string()
+          .min(2, 'Too Short!')
+          .max(50, 'Too Long!')
+          .required('Required')
+      })}
+      onSubmit={(values, { resetForm }) => {
+        onSearch(values.name);
+        resetForm();
+      }}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Field name="name" component={SemanticInput} />
+          <Button type="submit" disabled={isSubmitting}>
+            Search
+          </Button>
+        </Form>
+      )}
+    </Formik>
+  </section>
+);
+
+export default SearchForm;

@@ -46,3 +46,21 @@ header h1 {
   width: 45%;
   margin: 10px 0 !important;
 }
+
+.search-form {
+  margin-top: 15px;
+}
+
+.search-form > form {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.search-form button {
+  margin-left: 5px !important;
+}
+
+.character-list .massive {
+  margin-top: 100px;
+}
